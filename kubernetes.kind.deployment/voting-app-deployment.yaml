@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-app-deployment
+  labels:
+    name: voting-app-deployment
+    app: voting-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: voting-app-pod
+      app: voting-app
+  template:
+    metadata:
+      labels:
+        name: voting-app-pod
+        app: voting-app
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: voting-app-container
+          image: vvd0502/votingapp_vote:0.2
+          ports:
+            - containerPort: 80
